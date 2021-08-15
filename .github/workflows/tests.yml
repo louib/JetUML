@@ -31,6 +31,8 @@ jobs:
     - name: compiling
       run: |
         mkdir -p bin/jetuml
+        cp -r icons/** bin/jetuml/
+        cp -r tipdata/** bin/jetuml/
         find . -name "*.java" > files.txt 
         javac -cp src:test -p junit:/usr/share/openjfx/lib --add-reads jetuml=org.junit.jupiter.params --add-reads jetuml=org.junit.jupiter.api --add-modules org.junit.jupiter.params,org.junit.jupiter.api,javafx.controls,javafx.swing -d bin/jetuml @files.txt
         cd src
@@ -42,5 +44,6 @@ jobs:
     - name: running the tests
       run: |
         wget https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.7.2/junit-platform-console-standalone-1.7.2.jar
-        java -p /usr/share/openjfx/lib --add-modules javafx.controls,javafx.swing -jar junit-platform-console-standalone-1.7.2.jar --scan-classpath=bin/jetuml --include-package=jetuml
+        # Options here https://junit.org/junit5/docs/current/user-guide/#running-tests-console-launcher-options
+        java --add-modules javafx.controls,javafx.swing -p /usr/share/openjfx/lib -jar junit-platform-console-standalone-1.7.2.jar --class-path=bin/jetuml --select-module=jetuml --scan-classpath
         # java -p junit:/usr/share/openjfx/lib:bin/jetuml --add-modules org.junit.jupiter.params,org.junit.jupiter.api,javafx.controls,javafx.swing,jetuml org.junit.runner.JUnitCore TestLine
