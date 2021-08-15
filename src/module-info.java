@@ -24,7 +24,5 @@ module jetuml {
 	requires java.desktop;
 	requires java.prefs;
 	requires transitive javafx.graphics;
-	requires static org.junit.jupiter.api;
-	requires static org.junit.jupiter.params;
 	exports ca.mcgill.cs.jetuml;
 }
