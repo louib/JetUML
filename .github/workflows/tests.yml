@@ -45,5 +45,5 @@ jobs:
       run: |
         wget https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.7.2/junit-platform-console-standalone-1.7.2.jar
         # Options here https://junit.org/junit5/docs/current/user-guide/#running-tests-console-launcher-options
-        java --add-modules javafx.controls,javafx.swing -p /usr/share/openjfx/lib -jar junit-platform-console-standalone-1.7.2.jar --class-path=bin/jetuml --select-module=jetuml --scan-classpath
+        java -Dprism.verbose=true --add-modules javafx.controls,javafx.swing -p /usr/share/openjfx/lib -jar junit-platform-console-standalone-1.7.2.jar --class-path=bin/jetuml --select-module=jetuml --scan-classpath
         # java -p junit:/usr/share/openjfx/lib:bin/jetuml --add-modules org.junit.jupiter.params,org.junit.jupiter.api,javafx.controls,javafx.swing,jetuml org.junit.runner.JUnitCore TestLine
