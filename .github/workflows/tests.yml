@@ -34,13 +34,13 @@ jobs:
         find . -name "*.java" > files.txt 
         javac -cp src:test -p junit:/usr/share/openjfx/lib --add-reads jetuml=org.junit.jupiter.params --add-reads jetuml=org.junit.jupiter.api --add-modules org.junit.jupiter.params,org.junit.jupiter.api,javafx.controls,javafx.swing -d bin/jetuml @files.txt
         cd src
-        cp --parent `find -name '*.css'` ../bin/jetuml
-        cp --parent `find -name '*.properties'` ../bin/jetuml
+        cp --parents `find -name '*.css'` ../bin/jetuml
+        cp --parents `find -name '*.properties'` ../bin/jetuml
         cd ../test
-        cp --parent `find -name '*.properties'` ../bin/jetuml
+        cp --parents `find -name '*.properties'` ../bin/jetuml
         cd ..
     - name: running the tests
       run: |
         wget https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.7.2/junit-platform-console-standalone-1.7.2.jar
-        java -jar junit-platform-console-standalone-1.7.2.jar --classpath /usr/share/openjfx/lib:bin/jetuml --scan-classpath
+        java -jar junit-platform-console-standalone-1.7.2.jar --classpath /usr/share/openjfx/lib:bin/jetuml --scan-classpath --include-package javafx.controls --include-package javafx.swing
         # java -p junit:/usr/share/openjfx/lib:bin/jetuml --add-modules org.junit.jupiter.params,org.junit.jupiter.api,javafx.controls,javafx.swing,jetuml org.junit.runner.JUnitCore TestLine
