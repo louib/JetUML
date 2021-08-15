@@ -18,6 +18,12 @@ jobs:
     - uses: actions/checkout@v1
     - name: installing Java and Java libraries
       run: sudo apt-get install -y openjdk-13-jdk openjfx libopenjfx-java libswt-gtk-4-java
+    - name: installing JavaFX
+      run: |
+        mkdir jfx
+        wget https://download2.gluonhq.com/openjfx/11.0.2/openjfx-11.0.2_linux-x64_bin-sdk.zip
+        unzip openjfx-11.0.2_linux-x64_bin-sdk.zip -d jfx
+
     - name: installing JUnit 5
       run: |
         mkdir junit
@@ -34,7 +40,7 @@ jobs:
         cp -r icons/** bin/jetuml/
         cp -r tipdata/** bin/jetuml/
         find . -name "*.java" > files.txt 
-        javac -cp src:test -p junit:/usr/share/openjfx/lib --add-reads jetuml=org.junit.jupiter.params --add-reads jetuml=org.junit.jupiter.api --add-modules org.junit.jupiter.params,org.junit.jupiter.api,javafx.controls,javafx.swing -d bin/jetuml @files.txt
+        javac -cp src:test -p junit:jfx/javafx-sdk-11.0.2/lib --add-reads jetuml=org.junit.jupiter.params --add-reads jetuml=org.junit.jupiter.api --add-modules org.junit.jupiter.params,org.junit.jupiter.api,javafx.controls,javafx.swing -d bin/jetuml @files.txt
         cd src
         cp --parents `find -name '*.css'` ../bin/jetuml
         cp --parents `find -name '*.properties'` ../bin/jetuml
@@ -45,5 +51,5 @@ jobs:
       run: |
         wget https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.7.2/junit-platform-console-standalone-1.7.2.jar
         # Options here https://junit.org/junit5/docs/current/user-guide/#running-tests-console-launcher-options
-        java -Dprism.verbose=true --add-modules javafx.controls,javafx.swing -p /usr/share/openjfx/lib -jar junit-platform-console-standalone-1.7.2.jar --class-path=bin/jetuml --select-module=jetuml --scan-classpath
+        java -Dprism.verbose=true --add-modules javafx.controls,javafx.swing -p jfx/javafx-sdk-11.0.2/lib -jar junit-platform-console-standalone-1.7.2.jar --class-path=bin/jetuml --select-module=jetuml --scan-classpath
         # java -p junit:/usr/share/openjfx/lib:bin/jetuml --add-modules org.junit.jupiter.params,org.junit.jupiter.api,javafx.controls,javafx.swing,jetuml org.junit.runner.JUnitCore TestLine
