@@ -42,5 +42,5 @@ jobs:
     - name: running the tests
       run: |
         wget https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.7.2/junit-platform-console-standalone-1.7.2.jar
-      java -jar junit-platform-console-standalone-1.7.2.jar --classpath /usr/share/openjfx/lib:bin/jetuml --scan-classpath bin/jetuml
+      java -p/usr/share/openjfx/lib -jar junit-platform-console-standalone-1.7.2.jar --classpath bin/jetuml --scan-classpath
         # java -p junit:/usr/share/openjfx/lib:bin/jetuml --add-modules org.junit.jupiter.params,org.junit.jupiter.api,javafx.controls,javafx.swing,jetuml org.junit.runner.JUnitCore TestLine
