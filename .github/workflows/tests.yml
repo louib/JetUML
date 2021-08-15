@@ -5,8 +5,8 @@ on:
     types: [opened, edited, synchronize, ready_for_review, review_requested]
     branches:
       - master
-    paths:
-      - "**/*.java"
+        # paths:
+        # - "**/*.java"
 
 jobs:
   tests:
